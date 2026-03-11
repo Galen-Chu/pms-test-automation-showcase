@@ -1,0 +1,11 @@
+guest_name,email,phone,room_type,arrival,departure,adults,children,rate_code,amount
+John Doe,john.doe@email.com,+1-555-0101,DELUXE,2026-03-20,2026-03-23,2,0,RACK,150.00
+Jane Smith,jane.smith@email.com,+1-555-0102,SUITE,2026-03-21,2026-03-22,2,1,WEEKEND,250.00
+Bob Johnson,bob.johnson@email.com,+1-555-0103,STANDARD,2026-03-22,2026-03-25,1,0,CORP,99.00
+Alice Williams,alice.williams@email.com,+1-555-0104,DELUXE,2026-03-23,2026-03-26,2,0,RACK,150.00
+Charlie Brown,charlie.brown@email.com,+1-555-0105,STANDARD,2026-03-24,2026-03-25,1,0,RACK,99.00
+Diana Prince,diana.prince@email.com,+1-555-0106,SUITE,2026-03-25,2026-03-28,2,0,LOYALTY,199.00
+Edward Norton,edward.norton@email.com,+1-555-0107,DELUXE,2026-03-26,2026-03-27,1,0,RACK,150.00
+Fiona Green,fiona.green@email.com,+1-555-0108,STANDARD,2026-03-27,2026-03-29,2,1,WEEKEND,120.00
+George Wilson,george.wilson@email.com,+1-555-0109,DELUXE,2026-03-28,2026-03-30,2,0,RACK,150.00
+Hannah Baker,hannah.baker@email.com,+1-555-0110,SUITE,2026-03-29,2026-04-01,3,0,LOYALTY,199.00

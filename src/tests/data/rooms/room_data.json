@@ -1,0 +1,102 @@
+{
+  "room_types": [
+    {
+      "code": "STD",
+      "name": "Standard Room",
+      "description": "Comfortable room with essential amenities",
+      "max_occupancy": 2,
+      "base_rate": 99.00,
+      "amenities": ["wifi", "tv", "ac", "minibar"],
+      "size_sqm": 25
+    },
+    {
+      "code": "DELUXE",
+      "name": "Deluxe Room",
+      "description": "Spacious room with premium amenities",
+      "max_occupancy": 3,
+      "base_rate": 149.00,
+      "amenities": ["wifi", "tv", "ac", "minibar", "balcony", "bathtub"],
+      "size_sqm": 35
+    },
+    {
+      "code": "SUITE",
+      "name": "Executive Suite",
+      "description": "Luxury suite with separate living area",
+      "max_occupancy": 4,
+      "base_rate": 299.00,
+      "amenities": ["wifi", "tv", "ac", "minibar", "balcony", "bathtub", "living_room", "kitchenette"],
+      "size_sqm": 60
+    },
+    {
+      "code": "FAMILY",
+      "name": "Family Room",
+      "description": "Large room suitable for families",
+      "max_occupancy": 5,
+      "base_rate": 199.00,
+      "amenities": ["wifi", "tv", "ac", "minibar", "extra_beds"],
+      "size_sqm": 45
+    }
+  ],
+  "room_statuses": [
+    {
+      "code": "VA",
+      "name": "Vacant",
+      "description": "Room is empty and ready for occupancy"
+    },
+    {
+      "code": "OC",
+      "name": "Occupied",
+      "description": "Room is currently occupied by guest"
+    },
+    {
+      "code": "OD",
+      "name": "Occupied Dirty",
+      "description": "Occupied room needs cleaning"
+    },
+    {
+      "code": "VD",
+      "name": "Vacant Dirty",
+      "description": "Empty room needs cleaning"
+    },
+    {
+      "code": "OO",
+      "name": "Out of Order",
+      "description": "Room is not available for use"
+    },
+    {
+      "code": "OS",
+      "name": "Out of Service",
+      "description": "Room is under maintenance"
+    }
+  ],
+  "sample_rooms": [
+    {
+      "number": "101",
+      "floor": 1,
+      "type": "STD",
+      "status": "VA",
+      "features": ["non_smoking", "city_view"]
+    },
+    {
+      "number": "201",
+      "floor": 2,
+      "type": "DELUXE",
+      "status": "VA",
+      "features": ["non_smoking", "ocean_view", "balcony"]
+    },
+    {
+      "number": "301",
+      "floor": 3,
+      "type": "SUITE",
+      "status": "OC",
+      "features": ["non_smoking", "ocean_view", "balcony", "accessible"]
+    },
+    {
+      "number": "401",
+      "floor": 4,
+      "type": "FAMILY",
+      "status": "VA",
+      "features": ["connecting_rooms", "city_view"]
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "valid_guest": {
+    "name": "John Doe",
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john.doe@example.com",
+    "phone": "+1-555-0100",
+    "mobile": "+1-555-0101",
+    "address": "123 Main Street",
+    "city": "New York",
+    "state": "NY",
+    "country": "USA",
+    "postal_code": "10001",
+    "id_type": "passport",
+    "id_number": "AB1234567",
+    "date_of_birth": "1990-05-15",
+    "nationality": "American",
+    "language": "en-US",
+    "vip_status": "gold",
+    "notes": "Prefers high floor rooms"
+  },
+  "vip_guest": {
+    "name": "Jane Smith",
+    "first_name": "Jane",
+    "last_name": "Smith",
+    "email": "jane.smith@company.com",
+    "phone": "+1-555-0200",
+    "mobile": "+1-555-0201",
+    "company": "Tech Corp Inc.",
+    "address": "456 Business Ave",
+    "city": "San Francisco",
+    "state": "CA",
+    "country": "USA",
+    "postal_code": "94102",
+    "id_type": "driver_license",
+    "id_number": "DL9876543",
+    "vip_status": "platinum",
+    "loyalty_number": "PLAT-123456",
+    "credit_limit": 5000.00,
+    "payment_terms": "net_30",
+    "notes": "VIP guest - always upgrade to suite"
+  },
+  "corporate_guest": {
+    "name": "Bob Johnson",
+    "first_name": "Bob",
+    "last_name": "Johnson",
+    "email": "bob.johnson@corp.com",
+    "phone": "+1-555-0300",
+    "company": "Global Enterprise Ltd.",
+    "company_code": "GE001",
+    "address": "789 Corporate Blvd",
+    "city": "Chicago",
+    "state": "IL",
+    "country": "USA",
+    "postal_code": "60601",
+    "id_type": "passport",
+    "id_number": "CD4567890",
+    "corporate_rate": true,
+    "billing_code": "CORP-2024",
+    "notes": "Bill to corporate account"
+  },
+  "international_guest": {
+    "name": "Marie Dubois",
+    "first_name": "Marie",
+    "last_name": "Dubois",
+    "email": "marie.dubois@email.fr",
+    "phone": "+33-1-2345-6789",
+    "mobile": "+33-6-1234-5678",
+    "address": "15 Rue de la Paix",
+    "city": "Paris",
+    "country": "France",
+    "postal_code": "75002",
+    "id_type": "passport",
+    "id_number": "FR12345678",
+    "nationality": "French",
+    "language": "fr-FR",
+    "currency_preference": "EUR",
+    "notes": "Requires French-speaking staff"
+  },
+  "invalid_guest_missing_email": {
+    "name": "Test User",
+    "phone": "+1-555-9999"
+  },
+  "invalid_guest_invalid_email": {
+    "name": "Bad Email User",
+    "email": "not-an-email",
+    "phone": "+1-555-9998"
+  },
+  "invalid_guest_missing_name": {
+    "email": "noname@example.com",
+    "phone": "+1-555-9997"
+  }
+}

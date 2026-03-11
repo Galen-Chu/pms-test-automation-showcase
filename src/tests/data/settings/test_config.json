@@ -1,0 +1,72 @@
+{
+  "test_environments": {
+    "local": {
+      "web_url": "http://localhost:3000",
+      "api_url": "http://localhost:8080/api",
+      "username": "test_user",
+      "password": "test_password",
+      "database": "test_db_local"
+    },
+    "staging": {
+      "web_url": "https://staging.pms-demo.com",
+      "api_url": "https://staging-api.pms-demo.com",
+      "username": "staging_test",
+      "password": "staging_password",
+      "database": "test_db_staging"
+    },
+    "demo": {
+      "web_url": "https://demo.pms-demo.com",
+      "api_url": "https://demo-api.pms-demo.com",
+      "username": "demo_user",
+      "password": "demo_password",
+      "database": "test_db_demo"
+    }
+  },
+  "browser_settings": {
+    "chrome": {
+      "version": "latest",
+      "headless": false,
+      "window_size": "1920,1080",
+      "options": [
+        "--no-sandbox",
+        "--disable-dev-shm-usage",
+        "--disable-gpu"
+      ]
+    },
+    "firefox": {
+      "version": "latest",
+      "headless": false,
+      "window_size": "1920,1080",
+      "options": [
+        "--width=1920",
+        "--height=1080"
+      ]
+    },
+    "edge": {
+      "version": "latest",
+      "headless": false,
+      "window_size": "1920,1080"
+    }
+  },
+  "test_data_settings": {
+    "cleanup_after_tests": true,
+    "use_fixed_data": true,
+    "randomize_dates": false,
+    "default_language": "en-US",
+    "default_currency": "USD",
+    "date_format": "YYYY-MM-DD",
+    "time_format": "HH:mm:ss"
+  },
+  "timeout_settings": {
+    "page_load": 30,
+    "element_wait": 10,
+    "script_timeout": 30,
+    "implicit_wait": 10
+  },
+  "reporting": {
+    "allure_enabled": true,
+    "screenshot_on_failure": true,
+    "video_recording": false,
+    "log_level": "INFO"
+  }
+}
