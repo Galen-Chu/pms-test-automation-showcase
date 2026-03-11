@@ -1,0 +1,60 @@
+services:
+  selenium-hub:
+    image: selenium/hub:4.35.0-20250828
+    container_name: selenium-hub
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+      - "4445:4445"
+      - "4446:4446"
+  chrome:
+    image: selenium/node-chrome:4.35.0-20250828
+    container_name: node-chrome
+    platform: linux/amd64
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_MAX_SESSIONS=4 # Max parallel sessions for this node
+      - SE_NODE_SESSION_TIMEOUT=300
+      - LANG=en_US.UTF-8
+      - LC_ALL=en_US.UTF-8
+    ports:
+      - "5900:5900" # Optional: for VNC access to the browser within the container
+
+  edge:
+    image: selenium/node-edge:4.35.0-20250828
+    platform: linux/amd64
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4445
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4446
+      - SE_NODE_MAX_SESSIONS=4 # Max parallel sessions for this node
+      - SE_NODE_SESSION_TIMEOUT=300
+      - LANG=en_US.UTF-8
+      - LC_ALL=en_US.UTF-8
+    ports:
+      - "5901:5901" # Optional: for VNC access to the browser within the container
+
+  firefox:
+    image: selenium/node-firefox:4.35.0-20250828
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_MAX_SESSIONS=4 # Max parallel sessions for this node
+      - SE_NODE_SESSION_TIMEOUT=300
+      - LANG=en_US.UTF-8
+      - LC_ALL=en_US.UTF-8
+    ports:
+      - "5902:5902" # Optional: for VNC access to the browser within the container
