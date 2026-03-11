@@ -1,0 +1,25 @@
+# Code Owners
+# These users will automatically be requested for review when a pull request
+# changes files in these directories.
+
+* @Galen-Chu
+
+# Python source code
+/src/ @Galen-Chu
+
+# Test files
+/src/tests/ @Galen-Chu
+
+# Documentation
+/docs/ @Galen-Chu
+/README.md @Galen-Chu
+/ARCHITECTURE.md @Galen-Chu
+
+# CI/CD configuration
+/.github/ @Galen-Chu
+/docker-compose.yml @Galen-Chu
+/Dockerfile @Galen-Chu
+
+# Configuration files
+/pytest.ini.example @Galen-Chu
+/requirements.txt @Galen-Chu
