@@ -51,5 +51,5 @@ class ServiceItemComponent(BasePage):
         return self
 
     def unitprice_disable(self):
-        tmp_locator = self.formator_locator(self.locator.input_service_columns, '單價')
-        return self.driver.find_element(*tmp_locator).get_attribute('aria-readonly')
+        tmp_locator = self.formator_locator(self.locator.input_service_columns, "單價")
+        return self.driver.find_element(*tmp_locator).get_attribute("aria-readonly")

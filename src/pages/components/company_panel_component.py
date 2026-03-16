@@ -39,8 +39,8 @@ class CompanyPanelComponent(BasePage):
     # pylint: disable=too-many-positional-arguments
     def setting_contract(self, contract_no, start_date, end_date, hotel_cod, con_rate_cod):
         self.input(self.locator.input_contract_no, contract_no)
-        self.select_start_day(start_date.split('/')[-1], 'Jan')
-        self.select_end_day(end_date.split('/')[-1], 'Jan')
+        self.select_start_day(start_date.split("/")[-1], "Jan")
+        self.select_end_day(end_date.split("/")[-1], "Jan")
         self.click(self.locator.select_hotel_cod)
         sleep(2)
         tmp_hotel_locator = self.formator_locator(self.locator.item_cod, hotel_cod)
@@ -59,7 +59,7 @@ class CompanyPanelComponent(BasePage):
     def select_start_day(self, day, month):
         self.click(self.locator.input_contract_start_date)
         self.click(self.locator.calendar_title)
-        self.input_with_clear(self.locator.calendar_year, '2024')
+        self.input_with_clear(self.locator.calendar_year, "2024")
         locator_month = self.formator_locator(self.locator.calendar_mon, month)
         self.click(locator_month)
         locator_day = self.formator_locator(self.locator.calendar_day, day)
@@ -69,7 +69,7 @@ class CompanyPanelComponent(BasePage):
     def select_end_day(self, day, month):
         self.click(self.locator.input_contract_end_date)
         self.click(self.locator.calendar_title)
-        self.input_with_clear(self.locator.calendar_year, '2024')
+        self.input_with_clear(self.locator.calendar_year, "2024")
         locator_month = self.formator_locator(self.locator.calendar_mon, month)
         self.click(locator_month)
         locator_day = self.formator_locator(self.locator.calendar_day, day)

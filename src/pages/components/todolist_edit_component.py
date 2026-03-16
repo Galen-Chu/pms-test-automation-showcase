@@ -11,7 +11,7 @@ class TodolistEditComponent(BasePage):
             self.click(department_locator)
         return self
 
-    def get_todolist_info(self,field):
+    def get_todolist_info(self, field):
         todolist_info = self.formator_locator(self.locator.todolist_table, field)
         WebDriverWait(self.driver, 2).until(
             lambda d: d.find_element(*todolist_info).text.strip() != ""

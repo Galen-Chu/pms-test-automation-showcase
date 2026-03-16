@@ -1,23 +1,21 @@
-
 from time import sleep
 from pages.base_page import BasePage
 
 
 class HousekeepingAccountPage(BasePage):
 
-
     def add_housekeeping_account(self):
         self.click(self.locator.btn_add)
         return self
 
     def select_class(self, rspt_type, shift_code):
-        dropdown_options = self.formator_locator(self.locator.dropdown_options, 'rsptCode')
+        dropdown_options = self.formator_locator(self.locator.dropdown_options, "rsptCode")
         self.click(dropdown_options)
         sleep(2)
         item_option = self.formator_locator(self.locator.item_option, rspt_type)
         self.click(item_option)
 
-        dropdown_options = self.formator_locator(self.locator.dropdown_options, 'shiftCode')
+        dropdown_options = self.formator_locator(self.locator.dropdown_options, "shiftCode")
         self.click(dropdown_options)
         sleep(2)
         item_option = self.formator_locator(self.locator.item_option, shift_code)
@@ -37,12 +35,12 @@ class HousekeepingAccountPage(BasePage):
     def add_housekeeping(self, small_type, product_nos):
         self.click(self.locator.btn_add_housekeeping)
         sleep(1)
-        dropdown_type = self.formator_locator(self.locator.dropdown_type, 'smallType')
+        dropdown_type = self.formator_locator(self.locator.dropdown_type, "smallType")
         self.click(dropdown_type)
         sleep(1)
         item_type_option = self.formator_locator(self.locator.item_type_option, small_type)
         self.click(item_type_option)
-        dropdown_type = self.formator_locator(self.locator.dropdown_type, 'productNos')
+        dropdown_type = self.formator_locator(self.locator.dropdown_type, "productNos")
         self.click(dropdown_type)
         sleep(1)
         item_type_option = self.formator_locator(self.locator.item_type_option, product_nos)

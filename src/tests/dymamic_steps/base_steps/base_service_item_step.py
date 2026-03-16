@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class BaseServiceItemStep(ABC):
 
     def __init__(self, web):

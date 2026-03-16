@@ -2,6 +2,7 @@
 Test data fixtures for pytest tests.
 Provides reusable test data across all test files.
 """
+
 import json
 import csv
 from pathlib import Path
@@ -19,14 +20,14 @@ DATA_DIR = Path(__file__).parent / "data"
 def load_json_data(file_path: str) -> Dict[str, Any]:
     """Load JSON data from file."""
     full_path = DATA_DIR / file_path
-    with open(full_path, 'r', encoding='utf-8') as f:
+    with open(full_path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
 def load_csv_data(file_path: str) -> List[Dict[str, str]]:
     """Load CSV data from file."""
     full_path = DATA_DIR / file_path
-    with open(full_path, 'r', encoding='utf-8') as f:
+    with open(full_path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         return list(reader)
 
@@ -34,6 +35,7 @@ def load_csv_data(file_path: str) -> List[Dict[str, str]]:
 # ============================================================================
 # Guest Data Fixtures
 # ============================================================================
+
 
 @pytest.fixture
 def guest_data() -> Dict[str, Any]:
@@ -112,6 +114,7 @@ def bulk_guests() -> List[Dict[str, str]]:
 # Reservation Data Fixtures
 # ============================================================================
 
+
 @pytest.fixture
 def reservation_data() -> Dict[str, Any]:
     """Load all reservation test data."""
@@ -163,8 +166,8 @@ def invalid_reservation_date_order(reservation_data) -> Dict[str, Any]:
 @pytest.fixture
 def random_reservation() -> Dict[str, Any]:
     """Generate random reservation data."""
-    arrival_date = fake.date_between(start_date='today', end_date='+30d')
-    departure_date = fake.date_between(start_date=arrival_date, end_date='+60d')
+    arrival_date = fake.date_between(start_date="today", end_date="+30d")
+    departure_date = fake.date_between(start_date=arrival_date, end_date="+60d")
 
     return {
         "guest_name": fake.name(),
@@ -184,6 +187,7 @@ def random_reservation() -> Dict[str, Any]:
 # ============================================================================
 # Room Data Fixtures
 # ============================================================================
+
 
 @pytest.fixture
 def room_data() -> Dict[str, Any]:
@@ -219,6 +223,7 @@ def random_room(room_types) -> Dict[str, Any]:
 # Configuration Fixtures
 # ============================================================================
 
+
 @pytest.fixture
 def test_config() -> Dict[str, Any]:
     """Load test configuration."""
@@ -241,14 +246,13 @@ def timeout_settings(test_config) -> Dict[str, int]:
 # Data Generator Fixtures
 # ============================================================================
 
+
 @pytest.fixture
 def guest_factory():
     """Factory for creating guest data."""
+
     def _create_guest(
-        name: str = None,
-        email: str = None,
-        phone: str = None,
-        **kwargs
+        name: str = None, email: str = None, phone: str = None, **kwargs
     ) -> Dict[str, str]:
         return {
             "name": name or fake.name(),
@@ -257,14 +261,16 @@ def guest_factory():
             "address": kwargs.get("address", fake.street_address()),
             "city": kwargs.get("city", fake.city()),
             "country": kwargs.get("country", fake.country()),
-            **kwargs
+            **kwargs,
         }
+
     return _create_guest
 
 
 @pytest.fixture
 def reservation_factory():
     """Factory for creating reservation data."""
+
     def _create_reservation(
         guest_name: str = None,
         arrival_date: str = None,
@@ -272,11 +278,10 @@ def reservation_factory():
         room_type: str = None,
         **kwargs
     ) -> Dict[str, Any]:
-        arrival = arrival_date or fake.date_between(start_date='today', end_date='+30d').isoformat()
-        departure = departure_date or fake.date_between(
-            start_date=arrival,
-            end_date='+60d'
-        ).isoformat()
+        arrival = arrival_date or fake.date_between(start_date="today", end_date="+30d").isoformat()
+        departure = (
+            departure_date or fake.date_between(start_date=arrival, end_date="+60d").isoformat()
+        )
 
         return {
             "guest_name": guest_name or fake.name(),
@@ -287,8 +292,9 @@ def reservation_factory():
             "children": kwargs.get("children", fake.random_int(min=0, max=2)),
             "email": kwargs.get("email", fake.email()),
             "phone": kwargs.get("phone", fake.phone_number()),
-            **kwargs
+            **kwargs,
         }
+
     return _create_reservation
 
 
@@ -296,14 +302,11 @@ def reservation_factory():
 # Cleanup Fixtures
 # ============================================================================
 
+
 @pytest.fixture
 def cleanup_tracker():
     """Track resources created during tests for cleanup."""
-    created_resources = {
-        "guests": [],
-        "reservations": [],
-        "rooms": []
-    }
+    created_resources = {"guests": [], "reservations": [], "rooms": []}
 
     yield created_resources
 
@@ -314,6 +317,7 @@ def cleanup_tracker():
 # ============================================================================
 # Parametrized Fixtures
 # ============================================================================
+
 
 @pytest.fixture(params=["valid_guest", "vip_guest", "corporate_guest", "international_guest"])
 def various_guest_types(request, guest_data):
@@ -330,6 +334,7 @@ def various_room_types(request):
 # ============================================================================
 # Helper Functions
 # ============================================================================
+
 
 def merge_dicts(base: Dict, override: Dict) -> Dict:
     """Merge two dictionaries with override taking precedence."""

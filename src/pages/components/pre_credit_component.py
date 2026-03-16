@@ -8,17 +8,19 @@ class PreCreditComponent(BasePage):
         return self
 
     def create_precredit(self, card_type, card_number, expiredate, authcod, amount):
-        card_type_dropdown_locator = self.formator_locator(self.locator.card_type_dropdown, 'payWay')
+        card_type_dropdown_locator = self.formator_locator(
+            self.locator.card_type_dropdown, "payWay"
+        )
         self.click(card_type_dropdown_locator)
         card_type_locator = self.formator_locator(self.locator.card_type_select, card_type)
         self.click(card_type_locator)
-        card_number_locator = self.formator_locator(self.locator.input_precredit_label, 'creditNos')
+        card_number_locator = self.formator_locator(self.locator.input_precredit_label, "creditNos")
         self.input(card_number_locator, card_number)
-        expiredate_locator = self.formator_locator(self.locator.input_precredit_label, 'expiraDat')
+        expiredate_locator = self.formator_locator(self.locator.input_precredit_label, "expiraDat")
         self.input(expiredate_locator, expiredate)
-        authcod_locator = self.formator_locator(self.locator.input_precredit_label, 'preauthCod')
+        authcod_locator = self.formator_locator(self.locator.input_precredit_label, "preauthCod")
         self.input(authcod_locator, authcod)
-        amount_locator = self.formator_locator(self.locator.input_precredit_label, 'precreditAmt')
+        amount_locator = self.formator_locator(self.locator.input_precredit_label, "precreditAmt")
         self.input(amount_locator, amount)
         return self
 

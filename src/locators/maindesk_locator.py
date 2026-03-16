@@ -5,15 +5,33 @@ from locators.base_locator import BaseLocator
 class MaindeskLocator(BaseLocator):
 
     # ----- 多筆頁面 -----
-    room_by_number = (By.XPATH, "//div[contains(@class,'room')]//h4[normalize-space()='%s']/ancestor::div[contains(@class,'room')]")
+    room_by_number = (
+        By.XPATH,
+        "//div[contains(@class,'room')]//h4[normalize-space()='%s']/ancestor::div[contains(@class,'room')]",
+    )
     room_status_tag = (By.XPATH, "//div[@class='toolbar']//label[contains(text(), '%s')]")
     floor = (By.XPATH, "//div[@class='tab']//a[normalize-space()='%s']")
-    first_room = (By.XPATH, "//div[@class='tab-content' and not(@style)]//div[@class='card-wrap']//div[@class='card--room'][1]")
+    first_room = (
+        By.XPATH,
+        "//div[@class='tab-content' and not(@style)]//div[@class='card-wrap']//div[@class='card--room'][1]",
+    )
 
-    room_number = (By.XPATH, "//div[@class='tab-content' and not(@style)]//div[@class='card-wrap']//div[@class='card--room'][1]//h4")
-    room_style = (By.XPATH, "//div[@class='tab-content' and not(@style)]//div[@class='card-wrap']//div[@class='card--room'][1]//div[2]/span")
-    room_stay_days = (By.XPATH, "//div[@class='tab-content' and not(@style)]//div[@class='card-wrap']//div[@class='card--room'][1]//div[2]/span[2]")
-    room_guest_name = (By.XPATH, "//div[@class='tab-content' and not(@style)]//div[@class='card-wrap']//div[@class='card--room'][1]//div[3]")
+    room_number = (
+        By.XPATH,
+        "//div[@class='tab-content' and not(@style)]//div[@class='card-wrap']//div[@class='card--room'][1]//h4",
+    )
+    room_style = (
+        By.XPATH,
+        "//div[@class='tab-content' and not(@style)]//div[@class='card-wrap']//div[@class='card--room'][1]//div[2]/span",
+    )
+    room_stay_days = (
+        By.XPATH,
+        "//div[@class='tab-content' and not(@style)]//div[@class='card-wrap']//div[@class='card--room'][1]//div[2]/span[2]",
+    )
+    room_guest_name = (
+        By.XPATH,
+        "//div[@class='tab-content' and not(@style)]//div[@class='card-wrap']//div[@class='card--room'][1]//div[3]",
+    )
 
     # ----- 櫃台入住 視窗 -----
     days_dropdown = (By.XPATH, "//label[normalize-space()='天數']/following-sibling::span")
@@ -21,7 +39,7 @@ class MaindeskLocator(BaseLocator):
     btn_edit_field = (By.XPATH, "//div[@data-field-id='%s']/button")
     btn_guest_function_maindesk = (By.XPATH, "//td[@data-field-id='%s']")
     btn_guest_function_span = (By.XPATH, "//span[@data-field-id='%s']")
-    btn_add_guest = ((By.XPATH, "//span[@data-field-id='appendSingleRow']"))
+    btn_add_guest = (By.XPATH, "//span[@data-field-id='appendSingleRow']")
 
     # ----- 房間細節 視窗 -----
     notice_content_text = (By.XPATH, "//div[@data-field-id='notice_rmk']/textarea")
@@ -45,9 +63,15 @@ class MaindeskLocator(BaseLocator):
     dirty_room_ck = (By.XPATH, "//div[@data-field-id='set_dirty_room']//span")
 
     # ----- 指定訂金 + 指定公帳號 視窗 -----
-    input_dropdown_field = (By.XPATH, "//label[normalize-space()='%s']/following-sibling::span/span/following-sibling::input")
+    input_dropdown_field = (
+        By.XPATH,
+        "//label[normalize-space()='%s']/following-sibling::span/span/following-sibling::input",
+    )
     room_dt_row = (By.XPATH, "//tr[.//div[text()='%s']]")
-    first_master_room = (By.XPATH, "//div[@class='datagrid-header' and .//span[text()='公帳號']]/following-sibling::div//tr")
+    first_master_room = (
+        By.XPATH,
+        "//div[@class='datagrid-header' and .//span[text()='公帳號']]/following-sibling::div//tr",
+    )
 
     # ----- 注意事項 視窗 -----
     notice_content_textarea = (By.XPATH, "//textarea[@data-field-id='noticeContent']")

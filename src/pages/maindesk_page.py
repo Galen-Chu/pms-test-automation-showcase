@@ -29,16 +29,18 @@ class MaindeskPage(BasePage):
 
     def get_room_guest_name(self):
         return self.driver.find_element(*self.locator.room_guest_name).text
+
     # ----- 多筆頁面 End -----
 
     # ----- 內部共用方法 -----
     def _get_input_value(self, field):
         tmp_locator = self.formator_locator(self.locator.input_by_label, field)
-        return self.driver.find_element(*tmp_locator).get_attribute('value')
+        return self.driver.find_element(*tmp_locator).get_attribute("value")
 
     def _click_span_button(self, field):
         tmp_locator = self.formator_locator(self.locator.btn_guest_function_span, field)
         return self.click(tmp_locator)
+
     # ----- 內部共用方法 End -----
 
     # ----- 房間單筆 -----
@@ -55,7 +57,7 @@ class MaindeskPage(BasePage):
         return self
 
     def click_add_guest(self):
-        self._click_span_button('appendSingleRow')
+        self._click_span_button("appendSingleRow")
         return self
 
     def click_edit_button(self, field):
@@ -69,7 +71,9 @@ class MaindeskPage(BasePage):
         return self
 
     def click_dropdown_guest(self, guest_name):
-        tmp_locator = self.formator_locator(self.locator.text_by_field_then_text, ('alt_nam', guest_name))
+        tmp_locator = self.formator_locator(
+            self.locator.text_by_field_then_text, ("alt_nam", guest_name)
+        )
         self.click(tmp_locator)
         return self
 
@@ -83,16 +87,19 @@ class MaindeskPage(BasePage):
         return self._get_input_value(field)
 
     def get_notice_content(self):
-        notice_content = self.driver.find_element(*self.locator.notice_content_text).get_attribute('value')
+        notice_content = self.driver.find_element(*self.locator.notice_content_text).get_attribute(
+            "value"
+        )
         return notice_content
 
     def get_roomdetail_guest_name(self):
-        guest_name = self.driver.find_element(*self.locator.guest_row_field).get_attribute('value')
+        guest_name = self.driver.find_element(*self.locator.guest_row_field).get_attribute("value")
         return guest_name
 
     def get_room_dt_row_text(self, field):
         tmp_locator = self.formator_locator(self.locator.text_in_room_dt_row, field)
         return self.driver.find_element(*tmp_locator).text
+
     # ----- 房間單筆 End -----
 
     # ----- 改退房日 視窗 -----
@@ -112,6 +119,7 @@ class MaindeskPage(BasePage):
     def click_room_checkbox(self):
         self.click(self.locator.room_checkbox_in_table)
         return self
+
     # ----- 改退房日 視窗 End -----
 
     # ----- 換房價 視窗 -----
@@ -135,6 +143,7 @@ class MaindeskPage(BasePage):
         tmp_locator = self.formator_locator(self.locator.select_option_by_combobox_item, use_cod)
         self.click(tmp_locator)
         return self
+
     # ----- 換房價 視窗 End -----
 
     # ----- 換房 視窗 -----
@@ -144,12 +153,12 @@ class MaindeskPage(BasePage):
 
     # ----- 指定訂金 視窗 -----
     def clear_specify_deposit(self):
-        tmp_locator = self.formator_locator(self.locator.input_dropdown_field, '訂金編號')
+        tmp_locator = self.formator_locator(self.locator.input_dropdown_field, "訂金編號")
         self.input_clear(tmp_locator)
         return self
 
     def select_specify_deposit(self, value):
-        tmp_locator = self.formator_locator(self.locator.input_dropdown_field, '訂金編號')
+        tmp_locator = self.formator_locator(self.locator.input_dropdown_field, "訂金編號")
         self.input(tmp_locator, value)
         self.sleep(2)
         self.input(tmp_locator, Keys.ENTER)
@@ -158,16 +167,16 @@ class MaindeskPage(BasePage):
         return self
 
     def get_specify_deposit_nos(self):
-        return self._get_input_value('訂金編號')
+        return self._get_input_value("訂金編號")
 
     # ----- 指定公帳號 視窗 -----
     def is_master_room_exit(self):
-        tmp_locator = self.formator_locator(self.locator.button_by_text, '取消公帳號')
+        tmp_locator = self.formator_locator(self.locator.button_by_text, "取消公帳號")
         tmp_element = self.driver.find_elements(*tmp_locator)
         return tmp_element
 
     def select_first_master_room(self, value):
-        tmp_locator = self.formator_locator(self.locator.input_dropdown_field, '公帳號')
+        tmp_locator = self.formator_locator(self.locator.input_dropdown_field, "公帳號")
         self.input(tmp_locator, value)
         self.sleep(2)
         self.input(tmp_locator, Keys.ENTER)
@@ -175,7 +184,7 @@ class MaindeskPage(BasePage):
         return self
 
     def get_specify_master_room(self):
-        return self._get_input_value('公帳號')
+        return self._get_input_value("公帳號")
 
     # ----- 注意事項 視窗 -----
     def input_note_content(self, value):

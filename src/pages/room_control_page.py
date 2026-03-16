@@ -16,7 +16,7 @@ class RoomControlPage(BasePage):
 
     def get_room_status(self):
         element = self.driver.find_element(*self.locator.clean_status)
-        return element.get_attribute('value')
+        return element.get_attribute("value")
 
     def get_room_color(self, room_no):
         element = self.formator_locator(self.locator.room_block, room_no)
@@ -97,11 +97,11 @@ class RoomControlPage(BasePage):
 
     def get_error_rooms(self):
         elements = self.driver.find_elements(*self.locator.room_errors)
-        return [element.text.split('在')[0].split('房號')[1] for element in elements]
+        return [element.text.split("在")[0].split("房號")[1] for element in elements]
 
     def get_room_repair_list(self):
         elements = self.driver.find_elements(*self.locator.room_repair_list)
-        return [element.text for element in elements if element.text.strip() != '']
+        return [element.text for element in elements if element.text.strip() != ""]
 
     def check_room_repair_item(self, room_no):
         locator_room = self.formator_locator(self.locator.room_repair_list_item, room_no)

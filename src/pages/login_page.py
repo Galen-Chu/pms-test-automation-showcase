@@ -14,11 +14,11 @@ class LoginPage(BasePage):
         retry = 0
         self.input(self.locator.input_username, username)
 
-        if int(os.getenv('VERSION')) >= 130:
+        if int(os.getenv("VERSION")) >= 130:
             while retry == 0 or (retry < 30 and self.has_wrong_captcha_tip()):
                 self.input(self.locator.input_password, password)
                 self.captcha_screenshot()
-                captcha_text = captcha_model.predict_captcha('image.png')
+                captcha_text = captcha_model.predict_captcha("image.png")
                 self.input_with_clear(self.locator.input_valid_code, captcha_text.strip())
                 self.click(self.locator.btn_login)
                 retry += 1
@@ -27,9 +27,11 @@ class LoginPage(BasePage):
             while retry == 0 or (retry < 30 and self.has_dialog_tip()):
                 self.close_dialog_tip()
                 self.captcha_screenshot()
-                image = Image.open('image.png')
-                processed_image = image.convert('L')
-                captcha_text = pytesseract.image_to_string(processed_image, config='-l eng -c tessedit_char_whitelist=0123456789 --psm 13')
+                image = Image.open("image.png")
+                processed_image = image.convert("L")
+                captcha_text = pytesseract.image_to_string(
+                    processed_image, config="-l eng -c tessedit_char_whitelist=0123456789 --psm 13"
+                )
                 self.input_with_clear(self.locator.input_valid_code, captcha_text.strip())
                 self.click(self.locator.btn_login)
                 retry += 1
@@ -38,11 +40,11 @@ class LoginPage(BasePage):
         DriverHelper.save_session_storages()
         return self
 
-    def captcha_screenshot(self, fix=''):
+    def captcha_screenshot(self, fix=""):
         captcha_element = self.driver.find_element(*self.locator.img_captcha)
         captcha_element.click()
         sleep(2)
-        captcha_element.screenshot(f'image{fix}.png')
+        captcha_element.screenshot(f"image{fix}.png")
         return self
 
     def has_dialog_tip(self):

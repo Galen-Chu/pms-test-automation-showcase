@@ -37,7 +37,7 @@ class ReservationPage(BasePage):
         self.input(self.locator.input_first_name, first_name)
         self.input(self.locator.input_last_name, last_name)
         self.click(self.locator.input_first_name)
-        self.input(self.locator.input_salute, '.')
+        self.input(self.locator.input_salute, ".")
         locator_option_salute = self.formator_locator(self.locator.option_salute, salute)
         self.click(locator_option_salute)
         self.input(self.locator.input_mobile, mobile)
@@ -64,7 +64,7 @@ class ReservationPage(BasePage):
         return self.driver.find_element(*locator_guest_info).text
 
     def get_deposit_amo(self):
-        return self.driver.find_element(*self.locator.text_deposit_amo).get_attribute('value')
+        return self.driver.find_element(*self.locator.text_deposit_amo).get_attribute("value")
 
     def has_guest_data_confirm_dialog(self):
         if self.driver.find_element(*self.locator.guest_data_confirm):
@@ -92,22 +92,28 @@ class ReservationPage(BasePage):
         return self
 
     def get_rent_total(self):
-        return int(self.driver.find_element(*self.locator.input_rent_total).get_attribute('value').strip().replace(",", ""))
+        return int(
+            self.driver.find_element(*self.locator.input_rent_total)
+            .get_attribute("value")
+            .strip()
+            .replace(",", "")
+        )
 
     def get_rent_total_detail(self):
         self.click(self.locator.btn_rent_total_detail)
         sleep(2)
         items = self.driver.find_elements(*self.locator.text_rent_amounts)
-        amounts = [int(item.text.replace(',', '')) for item in items]
+        amounts = [int(item.text.replace(",", "")) for item in items]
         return sum(amounts)
 
     def close_panel_by_title(self, title):
         locator_panel_close = self.formator_locator(self.locator.btn_panel_close, title)
         self.click(locator_panel_close)
         return self
+
     # ----- 依房型訂房 END -----
 
     def get_rent_day(self):
         rent_day_element = self.driver.find_element(*self.locator.rent_day)
-        rent_day = rent_day_element.get_attribute('value')
+        rent_day = rent_day_element.get_attribute("value")
         return rent_day

@@ -1,5 +1,6 @@
 from pages.base_page import BasePage
 
+
 class RoomAssignmentPage(BasePage):
 
     def has_assign_rmk(self):
@@ -13,7 +14,7 @@ class RoomAssignmentPage(BasePage):
 
     def get_text_in_detail_tab(self, field):
         tmp_locator = self.formator_locator(self.locator.text_in_detail_tab, field)
-        return self.driver.find_element(*tmp_locator).get_attribute('value')
+        return self.driver.find_element(*tmp_locator).get_attribute("value")
 
     def click_room_sta_checkbox(self):
         self.click(self.locator.check_room_sta)

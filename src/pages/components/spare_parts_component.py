@@ -4,7 +4,9 @@ from pages.base_page import BasePage
 class SparePartsComponent(BasePage):
 
     def check_spare_parts_exist(self):
-        spare_parts_exist = self.driver.find_element(*self.locator.spare_parts_first_row).get_attribute("style")
+        spare_parts_exist = self.driver.find_element(
+            *self.locator.spare_parts_first_row
+        ).get_attribute("style")
         if "height: 1px" in spare_parts_exist:
             return False
         return True
@@ -27,7 +29,9 @@ class SparePartsComponent(BasePage):
         return self
 
     def create_spare_parts(self, spare_parts_option):
-        spare_parts_dropdown = self.formator_locator(self.locator.spare_parts_row_dropdown, 'itemCode')
+        spare_parts_dropdown = self.formator_locator(
+            self.locator.spare_parts_row_dropdown, "itemCode"
+        )
         self.click(spare_parts_dropdown)
         spare_parts = self.formator_locator(self.locator.spare_parts_options, spare_parts_option)
         self.click(spare_parts)
@@ -37,7 +41,7 @@ class SparePartsComponent(BasePage):
         date_dropdown = self.formator_locator(self.locator.spare_parts_row_dropdown, field)
         self.click(date_dropdown)
         self.click(self.locator.calendar_title)
-        self.input_with_clear(self.locator.input_year, '2024')
+        self.input_with_clear(self.locator.input_year, "2024")
         month_locator = self.formator_locator(self.locator.select_date, month)
         self.click(month_locator)
         day_locator = self.formator_locator(self.locator.select_date, day)

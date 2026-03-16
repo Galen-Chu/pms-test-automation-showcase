@@ -9,6 +9,7 @@ from selenium.common.exceptions import (
     NoSuchElementException,
     StaleElementReferenceException,
 )
+
 # pylint: disable=unused-import
 from locators.header_locator import HeaderLocator
 from locators.login_locator import LoginLocator
@@ -34,13 +35,17 @@ from locators.pre_credit_locator import PreCreditLocator
 from locators.message_edit_locator import MessageEditLocator
 from locators.room_assignment_locator import RoomAssignmentLocator
 from locators.maindesk_locator import MaindeskLocator
+
 # pylint: enable=unused-import
+
 
 class BasePage:
 
     def __init__(self, driver):
-        prefix = type(self).__name__.replace('Page', '').replace('Component', '').replace('Dialog', '')
-        self.locator = globals()[f'{prefix}Locator']
+        prefix = (
+            type(self).__name__.replace("Page", "").replace("Component", "").replace("Dialog", "")
+        )
+        self.locator = globals()[f"{prefix}Locator"]
         self.driver = driver
 
     def formator_locator(self, locator, values):
@@ -56,7 +61,7 @@ class BasePage:
                 ElementClickInterceptedException,
                 ElementNotInteractableException,
                 NoSuchElementException,
-                StaleElementReferenceException
+                StaleElementReferenceException,
             ) as _:
                 if attempt < retries - 1:
                     sleep(delay)
@@ -67,9 +72,9 @@ class BasePage:
         self.click(self.locator.btn_clear)
         return self
 
-    def input_clear(self,  locator):
+    def input_clear(self, locator):
         element = self.driver.find_element(*locator)
-        element.send_keys(Keys.CONTROL, 'a')
+        element.send_keys(Keys.CONTROL, "a")
         element.send_keys(Keys.BACKSPACE)
         return self
 
@@ -97,8 +102,10 @@ class BasePage:
             self.driver.implicitly_wait(10)
 
     def screenshot(self, file_name):
-        if hasattr(self.driver, 'get_screenshot_as_png'):
-            allure.attach(self.driver.get_screenshot_as_png(), file_name, allure.attachment_type.PNG)
+        if hasattr(self.driver, "get_screenshot_as_png"):
+            allure.attach(
+                self.driver.get_screenshot_as_png(), file_name, allure.attachment_type.PNG
+            )
         return self
 
     def sleep(self, seconds):
@@ -106,21 +113,28 @@ class BasePage:
         return self
 
     def assert_data(self, title, real, expect):
-        allure.attach(f"Real: {real} , Expect: {expect}", f'實際結果-{title}', allure.attachment_type.TEXT)
+        allure.attach(
+            f"Real: {real} , Expect: {expect}", f"實際結果-{title}", allure.attachment_type.TEXT
+        )
         assert real == expect
 
     def assert_data_in_list(self, title, reals, expect):
-        allure.attach(f"Real: {reals} , Expect: {expect}", f'實際結果-{title}', allure.attachment_type.TEXT)
+        allure.attach(
+            f"Real: {reals} , Expect: {expect}", f"實際結果-{title}", allure.attachment_type.TEXT
+        )
         assert expect in reals
 
     def assert_data_not_in_list(self, title, reals, expect):
-        allure.attach(f"Real: {reals} , Expected not to find: {expect}", f'實際結果-{title}', allure.attachment_type.TEXT)
-        assert expect  not in reals
+        allure.attach(
+            f"Real: {reals} , Expected not to find: {expect}",
+            f"實際結果-{title}",
+            allure.attachment_type.TEXT,
+        )
+        assert expect not in reals
 
     def assert_data_has_count(self, title, real):
-        allure.attach(f"Real: {real}", f'實際結果-{title}', allure.attachment_type.TEXT)
+        allure.attach(f"Real: {real}", f"實際結果-{title}", allure.attachment_type.TEXT)
         assert int(real) > 0
-
 
     # ----- Framework Base Methods -----
     def expand_search_condition(self):
@@ -141,21 +155,27 @@ class BasePage:
 
     def has_toolbar_item(self, item, panel=None):
         if panel:
-            locator_toolbar_item = self.formator_locator(self.locator.btn_toolbar_item_by_panel, (panel, item))
+            locator_toolbar_item = self.formator_locator(
+                self.locator.btn_toolbar_item_by_panel, (panel, item)
+            )
         else:
             locator_toolbar_item = self.formator_locator(self.locator.btn_toolbar_item, item)
         return self.has_element(locator_toolbar_item)
 
     def toolbar_item_enabled(self, item, panel=None):
         if panel:
-            locator_toolbar_item = self.formator_locator(self.locator.btn_toolbar_item_by_panel, (panel, item))
+            locator_toolbar_item = self.formator_locator(
+                self.locator.btn_toolbar_item_by_panel, (panel, item)
+            )
         else:
             locator_toolbar_item = self.formator_locator(self.locator.btn_toolbar_item, item)
         return self.driver.find_element(*locator_toolbar_item).is_enabled()
 
     def click_toolbar_item(self, item, panel=None):
         if panel:
-            locator_toolbar_item = self.formator_locator(self.locator.btn_toolbar_item_by_panel, (panel, item))
+            locator_toolbar_item = self.formator_locator(
+                self.locator.btn_toolbar_item_by_panel, (panel, item)
+            )
         else:
             locator_toolbar_item = self.formator_locator(self.locator.btn_toolbar_item, item)
         self.click(locator_toolbar_item)
@@ -163,7 +183,9 @@ class BasePage:
 
     def click_toolbar_item_2(self, item, panel=None):
         if panel:
-            locator_toolbar_item = self.formator_locator(self.locator.btn_toolbar_item_by_panel, (panel, item))
+            locator_toolbar_item = self.formator_locator(
+                self.locator.btn_toolbar_item_by_panel, (panel, item)
+            )
         else:
             locator_toolbar_item = self.formator_locator(self.locator.btn_toolbar_item_2, item)
         self.click(locator_toolbar_item)
@@ -171,7 +193,9 @@ class BasePage:
 
     def click_toolbar_with_icon(self, icon, panel=None):
         if panel:
-            locator_toolbar_item = self.formator_locator(self.locator.btn_toolbar_with_icon_by_panel, (panel, icon))
+            locator_toolbar_item = self.formator_locator(
+                self.locator.btn_toolbar_with_icon_by_panel, (panel, icon)
+            )
         else:
             locator_toolbar_item = self.formator_locator(self.locator.btn_toolbar_with_icon, icon)
         self.click(locator_toolbar_item)
@@ -245,7 +269,7 @@ class BasePage:
 
     def get_diplaying_items_count(self):
         count = self.driver.find_element(*self.locator.text_table_items_count).text
-        return count.split('of ')[1].split(' items')[0]
+        return count.split("of ")[1].split(" items")[0]
 
     def get_field_text(self, field):
         tmp_locator = self.formator_locator(self.locator.text_by_field, field)

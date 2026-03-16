@@ -7,6 +7,7 @@ This file shows how to use:
 - Parametrized tests with multiple data sets
 - Data factories for flexible test data creation
 """
+
 import pytest
 from tests.fixtures import GuestDataGenerator, ReservationDataGenerator, create_test_scenario
 
@@ -33,12 +34,9 @@ class TestGuestCreation:
         assert vip_guest["vip_status"] == "platinum"
         assert vip_guest["loyalty_number"] is not None
 
-    @pytest.mark.parametrize("guest_type", [
-        "valid_guest",
-        "vip_guest",
-        "corporate_guest",
-        "international_guest"
-    ])
+    @pytest.mark.parametrize(
+        "guest_type", ["valid_guest", "vip_guest", "corporate_guest", "international_guest"]
+    )
     def test_create_various_guest_types(self, guest_type, guest_data):
         """Parametrized test with multiple guest types."""
         guest = guest_data[guest_type]
@@ -49,9 +47,7 @@ class TestGuestCreation:
         """Test using factory to create custom guest."""
         # Use factory to create guest with specific attributes
         custom_guest = guest_factory(
-            name="Custom User",
-            email="custom@example.com",
-            country="Canada"
+            name="Custom User", email="custom@example.com", country="Canada"
         )
 
         assert custom_guest["name"] == "Custom User"
@@ -61,8 +57,10 @@ class TestGuestCreation:
     def test_invalid_guest_missing_email(self, invalid_guest_missing_email):
         """Test validation with invalid data."""
         # This should fail validation (no email)
-        assert "email" not in invalid_guest_missing_email or \
-               invalid_guest_missing_email.get("email") is None
+        assert (
+            "email" not in invalid_guest_missing_email
+            or invalid_guest_missing_email.get("email") is None
+        )
 
 
 class TestReservationCreation:
@@ -81,6 +79,7 @@ class TestReservationCreation:
 
         # Verify departure is after arrival
         from datetime import datetime
+
         arrival = datetime.fromisoformat(random_reservation["arrival_date"])
         departure = datetime.fromisoformat(random_reservation["departure_date"])
         assert departure > arrival
@@ -99,10 +98,7 @@ class TestReservationCreation:
     def test_create_reservation_with_factory(self, reservation_factory):
         """Test using factory to create custom reservation."""
         custom_reservation = reservation_factory(
-            guest_name="Factory Guest",
-            room_type="SUITE",
-            adults=2,
-            children=1
+            guest_name="Factory Guest", room_type="SUITE", adults=2, children=1
         )
 
         assert custom_reservation["guest_name"] == "Factory Guest"
@@ -152,6 +148,7 @@ class TestBulkData:
 
         # Verify date logic
         from datetime import datetime
+
         for res in reservations:
             arrival = datetime.fromisoformat(res["arrival_date"])
             departure = datetime.fromisoformat(res["departure_date"])
@@ -189,10 +186,7 @@ class TestDataScenarios:
             scenario = (
                 create_test_scenario()
                 .with_guest(name=f"Test Guest {i}")
-                .with_reservation(
-                    guest_name=f"Test Guest {i}",
-                    room_type="DELUXE"
-                )
+                .with_reservation(guest_name=f"Test Guest {i}", room_type="DELUXE")
                 .build()
             )
             scenarios.append(scenario)
@@ -217,30 +211,37 @@ class TestDataScenarios:
 class TestDataValidation:
     """Examples of data validation testing."""
 
-    @pytest.mark.parametrize("email,expected_valid", [
-        ("user@example.com", True),
-        ("user.name@example.com", True),
-        ("user+tag@example.com", True),
-        ("not-an-email", False),
-        ("@example.com", False),
-        ("user@", False),
-        ("", False),
-    ])
+    @pytest.mark.parametrize(
+        "email,expected_valid",
+        [
+            ("user@example.com", True),
+            ("user.name@example.com", True),
+            ("user+tag@example.com", True),
+            ("not-an-email", False),
+            ("@example.com", False),
+            ("user@", False),
+            ("", False),
+        ],
+    )
     def test_email_validation(self, email, expected_valid):
         """Test email validation with various inputs."""
         import re
-        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+
+        pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
         is_valid = bool(re.match(pattern, email))
 
         assert is_valid == expected_valid
 
-    @pytest.mark.parametrize("adults,children,expected_valid", [
-        (1, 0, True),   # Valid: 1 adult
-        (2, 2, True),   # Valid: family
-        (0, 0, False),  # Invalid: no guests
-        (5, 0, False),  # Invalid: too many adults
-        (2, 4, False),  # Invalid: too many children
-    ])
+    @pytest.mark.parametrize(
+        "adults,children,expected_valid",
+        [
+            (1, 0, True),  # Valid: 1 adult
+            (2, 2, True),  # Valid: family
+            (0, 0, False),  # Invalid: no guests
+            (5, 0, False),  # Invalid: too many adults
+            (2, 4, False),  # Invalid: too many children
+        ],
+    )
     def test_guest_count_validation(self, adults, children, expected_valid):
         """Test guest count validation."""
         # Assuming max occupancy is 4 adults and 3 children
@@ -248,10 +249,7 @@ class TestDataValidation:
         max_children = 3
 
         is_valid = (
-            adults >= 1 and
-            adults <= max_adults and
-            children >= 0 and
-            children <= max_children
+            adults >= 1 and adults <= max_adults and children >= 0 and children <= max_children
         )
 
         assert is_valid == expected_valid
@@ -289,10 +287,7 @@ class TestDataModification:
         base = valid_guest
 
         # Override specific fields
-        overrides = {
-            "email": "custom@email.com",
-            "country": "Canada"
-        }
+        overrides = {"email": "custom@email.com", "country": "Canada"}
 
         # Merge
         modified = merge_dicts(base, overrides)

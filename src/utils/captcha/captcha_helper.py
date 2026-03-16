@@ -3,8 +3,8 @@ import pickle
 import os
 import numpy as np
 import cv2
-from tensorflow import keras # pylint: disable=no-name-in-module,import-error
-from tensorflow.keras import layers # pylint: disable=no-name-in-module,import-error
+from tensorflow import keras  # pylint: disable=no-name-in-module,import-error
+from tensorflow.keras import layers  # pylint: disable=no-name-in-module,import-error
 from sklearn.model_selection import train_test_split
 
 
@@ -23,9 +23,9 @@ class CaptchaTrainer:
         labels = []
 
         for filename in os.listdir(data_path):
-            if filename.endswith(('.png', '.jpg', '.jpeg')):
+            if filename.endswith((".png", ".jpg", ".jpeg")):
                 # 檔名為標籤
-                label = filename.split('.')[0]
+                label = filename.split(".")[0]
                 img_path = os.path.join(data_path, filename)
 
                 # 讀取並預處理圖片
@@ -80,8 +80,9 @@ class CaptchaTrainer:
         # 為每個位置建立輸出層
         outputs = []
         for i in range(self.max_length):
-            output = layers.Dense(len(self.characters) + 1, activation='softmax',
-                                  name=f'char_{i}')(x)
+            output = layers.Dense(len(self.characters) + 1, activation="softmax", name=f"char_{i}")(
+                x
+            )
             outputs.append(output)
 
         model = keras.Model(inputs=input_img, outputs=outputs)
@@ -101,15 +102,12 @@ class CaptchaTrainer:
 
         # 分割資料
         x_train, x_test, y_train_encoded, y_test_encoded = train_test_split(
-            images,
-            encoded_labels,
-            test_size=validation_split,
-            random_state=42
+            images, encoded_labels, test_size=validation_split, random_state=42
         )
 
         # 準備多輸出標籤字典
-        y_train_dict = {f'char_{i}': y_train_encoded[:, i] for i in range(self.max_length)}
-        y_test_dict = {f'char_{i}': y_test_encoded[:, i] for i in range(self.max_length)}
+        y_train_dict = {f"char_{i}": y_train_encoded[:, i] for i in range(self.max_length)}
+        y_test_dict = {f"char_{i}": y_test_encoded[:, i] for i in range(self.max_length)}
 
         return x_train, x_test, y_train_dict, y_test_dict
 
@@ -117,49 +115,58 @@ class CaptchaTrainer:
         """訓練模型"""
         # 準備所有資料
         x_train, x_test, y_train_dict, y_test_dict = self._prepare_all_data(
-            data_path, validation_split)
+            data_path, validation_split
+        )
 
         # 建立和編譯模型
         model = self.build_model()
 
-        loss_dict = {f'char_{i}': 'sparse_categorical_crossentropy' for i in range(self.max_length)}
-        metrics_dict = {f'char_{i}': ['accuracy'] for i in range(self.max_length)}
+        loss_dict = {f"char_{i}": "sparse_categorical_crossentropy" for i in range(self.max_length)}
+        metrics_dict = {f"char_{i}": ["accuracy"] for i in range(self.max_length)}
 
-        model.compile(optimizer='adam', loss=loss_dict, metrics=metrics_dict)
+        model.compile(optimizer="adam", loss=loss_dict, metrics=metrics_dict)
 
         # 訓練
         history = model.fit(
-            x_train, y_train_dict,
+            x_train,
+            y_train_dict,
             batch_size=batch_size,
             epochs=epochs,
             validation_data=(x_test, y_test_dict),
-            verbose=1
+            verbose=1,
         )
 
         # 儲存模型和映射
-        model.save('captcha_model.keras')
+        model.save("captcha_model.keras")
 
-        with open('char_mappings.pkl', 'wb') as f:
-            pickle.dump({
-                'char_to_num': self.char_to_num,
-                'num_to_char': self.num_to_char,
-                'characters': self.characters
-            }, f)
+        with open("char_mappings.pkl", "wb") as f:
+            pickle.dump(
+                {
+                    "char_to_num": self.char_to_num,
+                    "num_to_char": self.num_to_char,
+                    "characters": self.characters,
+                },
+                f,
+            )
 
         return model, history
 
     def predict_captcha(self, image_path):
         # 載入模型
-        model_path = Path(__file__).resolve().parent.parent.parent / 'ml-models' / 'captcha_model.keras'
+        model_path = (
+            Path(__file__).resolve().parent.parent.parent / "ml-models" / "captcha_model.keras"
+        )
         model = keras.models.load_model(model_path)
 
         # 載入字符映射
-        pickle_path = Path(__file__).resolve().parent.parent.parent / 'ml-models' / 'char_mappings.pkl'
-        with open(pickle_path, 'rb') as f:
+        pickle_path = (
+            Path(__file__).resolve().parent.parent.parent / "ml-models" / "char_mappings.pkl"
+        )
+        with open(pickle_path, "rb") as f:
             mappings = pickle.load(f)
-            self.char_to_num = mappings['char_to_num']
-            self.num_to_char = mappings['num_to_char']
-            self.characters = mappings['characters']
+            self.char_to_num = mappings["char_to_num"]
+            self.num_to_char = mappings["num_to_char"]
+            self.characters = mappings["characters"]
 
         # 預測驗證碼
         img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)

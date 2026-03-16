@@ -1,11 +1,13 @@
 from time import sleep
 from pages.base_page import BasePage
 
+
 class SharePanelComponent(BasePage):
 
-
     def click_panel_footer_btn(self, title, btn_name):
-        locator_panel_confirm = self.formator_locator(self.locator.panel_footer_btn, (title, btn_name))
+        locator_panel_confirm = self.formator_locator(
+            self.locator.panel_footer_btn, (title, btn_name)
+        )
         self.click(locator_panel_confirm)
         return self
 
@@ -72,32 +74,34 @@ class SharePanelComponent(BasePage):
         self.input(locator_label_input, value)
         return self
 
-    def input_duration_by_label(self, label, duration:list[str]):
+    def input_duration_by_label(self, label, duration: list[str]):
         locator_label_duration = self.formator_locator(self.locator.label_duration, label)
         elements = self.driver.find_elements(*locator_label_duration)
         index = 0
         for element in elements:
             element.clear()
             self.driver.execute_script(f"arguments[0].value = '{duration[index]}';", element)
-            self.driver.execute_script("arguments[0].dispatchEvent(new Event('input', { bubbles: true }));", element)
+            self.driver.execute_script(
+                "arguments[0].dispatchEvent(new Event('input', { bubbles: true }));", element
+            )
             index += 1
         return self
 
     def get_value_by_label(self, label):
         locator_label_input = self.formator_locator(self.locator.label_input, label)
-        return self.driver.find_element(*locator_label_input).get_attribute('value')
+        return self.driver.find_element(*locator_label_input).get_attribute("value")
 
     def get_value_by_label_2(self, label):
         locator_label_input = self.formator_locator(self.locator.label_input_2, label)
-        return self.driver.find_element(*locator_label_input).get_attribute('value')
+        return self.driver.find_element(*locator_label_input).get_attribute("value")
 
     def get_value_by_label_3(self, label):
         locator_label_input = self.formator_locator(self.locator.label_input_3, label)
-        return self.driver.find_element(*locator_label_input).get_attribute('value')
+        return self.driver.find_element(*locator_label_input).get_attribute("value")
 
     def get_value_by_label_span(self, label):
         locator_label_input = self.formator_locator(self.locator.label_span_select_value, label)
-        return self.driver.find_element(*locator_label_input).get_attribute('value')
+        return self.driver.find_element(*locator_label_input).get_attribute("value")
 
     def get_value_by_label_span_3(self, label):
         locator_label_input = self.formator_locator(self.locator.label_span_select_value_3, label)
@@ -119,8 +123,8 @@ class SharePanelComponent(BasePage):
         label_checkbox = self.formator_locator(self.locator.label_checkbox, label)
         self.click(label_checkbox)
         return self
-    # ---- 開班 panel END ----
 
+    # ---- 開班 panel END ----
 
     # ---- 使用期間 panel ----
     def click_panel_add(self, title):
@@ -129,11 +133,13 @@ class SharePanelComponent(BasePage):
         return self
 
     def click_column_by_header(self, header):
-        locator_column = self.formator_locator(self.locator.input_column_by_header, (header, header))
+        locator_column = self.formator_locator(
+            self.locator.input_column_by_header, (header, header)
+        )
         self.click(locator_column)
         return self
 
-    def select_multiple_item(self, items:list[str]):
+    def select_multiple_item(self, items: list[str]):
         for item in items:
             locator_item = self.formator_locator(self.locator.drop_down_item, item)
             self.click(locator_item)

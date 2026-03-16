@@ -1,4 +1,3 @@
-
 from time import sleep
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
@@ -14,7 +13,6 @@ class GuestAccountPage(BasePage):
     def click_guest_maintain(self):
         self.click(self.locator.btn_guest_maintain)
         return self
-
 
     def click_credit(self):
         self.click(self.locator.btn_credit)
@@ -33,12 +31,11 @@ class GuestAccountPage(BasePage):
 
     def get_guest_maintain_info(self, field):
         locator_guest_info = self.formator_locator(self.locator.label_deposit, field)
-        return self.driver.find_element(*locator_guest_info).get_attribute('value')
+        return self.driver.find_element(*locator_guest_info).get_attribute("value")
 
     def get_deposit_info(self, field):
         locator_deposit_info = self.formator_locator(self.locator.td_deposit_info, field)
         return self.driver.find_element(*locator_deposit_info).text
-
 
     def click_item_detail(self):
         self.click(self.locator.btn_item_detail)
@@ -47,7 +44,7 @@ class GuestAccountPage(BasePage):
     def get_input_values(self, label):
         text_input_values = self.formator_locator(self.locator.text_input_values, label)
         elements = self.driver.find_elements(*text_input_values)
-        input_value = ''.join([str(element.text) for element in elements])
+        input_value = "".join([str(element.text) for element in elements])
         return input_value
 
     def get_input_value(self, label):
@@ -72,7 +69,7 @@ class GuestAccountPage(BasePage):
 
         rows = self.driver.find_elements(*row_in_table)
         position = len(self.driver.find_elements(*th_position))
-        return [row.find_elements(By.XPATH, 'td')[position].text.strip() for row in rows]
+        return [row.find_elements(By.XPATH, "td")[position].text.strip() for row in rows]
 
     def get_uni_cod(self):
-        return self.driver.find_element(*self.locator.text_uni_cod).get_attribute('value')
+        return self.driver.find_element(*self.locator.text_uni_cod).get_attribute("value")

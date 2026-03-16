@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from locators.base_locator import BaseLocator
 
+
 class PreCreditLocator(BaseLocator):
 
     card_type_dropdown = (By.XPATH, "//td[@field='%s']//a")

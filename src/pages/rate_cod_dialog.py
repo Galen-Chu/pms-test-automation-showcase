@@ -43,7 +43,7 @@ class RateCodDialog(BasePage):
         self.click(select)
         return self
 
-    def select_multiple_item(self, items:list[str]):
+    def select_multiple_item(self, items: list[str]):
         for item in items:
             locator_item = self.formator_locator(self.locator.select_item, item)
             self.click(locator_item)
@@ -54,7 +54,6 @@ class RateCodDialog(BasePage):
         self.click(locator_tab)
         return self
 
-
     def input_values_by_row(self, tab_name, row, values):
         td_locators = self.formator_locator(self.locator.td_price, (tab_name, row))
         input_locators = self.formator_locator(self.locator.input_price, (tab_name, row))
@@ -63,13 +62,12 @@ class RateCodDialog(BasePage):
             elements[index].click()
             sleep(1)
             input_element = self.driver.find_element(*input_locators)
-            input_element.send_keys(values[index-1])
+            input_element.send_keys(values[index - 1])
         return self
 
     def close_panel(self):
         self.click(self.locator.btn_pnael_close)
         return self
-
 
     def click_localization_ratecod(self):
         self.click(self.locator.btn_localization_ratecod)
@@ -100,16 +98,21 @@ class RateCodDialog(BasePage):
         elements = self.driver.find_elements(*self.locator.item_service_types)
         return [element.get_attribute("innerText") for element in elements]
 
-
-    def input_sale_duration(self, duration:list[str]):
+    def input_sale_duration(self, duration: list[str]):
         self.click(self.locator.icon_sell_from_date)
         index = 0
         for date in duration:
-            range_type = 'left' if index == 0 else 'right'
+            range_type = "left" if index == 0 else "right"
             date_title = self.formator_locator(self.locator.date_range_year_title, range_type)
-            year_locator = self.formator_locator(self.locator.date_range_cell_item, (range_type, date.split('/')[0]))
-            month_locator = self.formator_locator(self.locator.date_range_cell_item, (range_type, date.split('/')[1]))
-            dd_locator = self.formator_locator(self.locator.date_range_cell_item, (range_type, date.split('/')[2]))
+            year_locator = self.formator_locator(
+                self.locator.date_range_cell_item, (range_type, date.split("/")[0])
+            )
+            month_locator = self.formator_locator(
+                self.locator.date_range_cell_item, (range_type, date.split("/")[1])
+            )
+            dd_locator = self.formator_locator(
+                self.locator.date_range_cell_item, (range_type, date.split("/")[2])
+            )
             self.click(date_title)
             sleep(1)
             self.click(date_title)
