@@ -191,16 +191,19 @@ jobs:
       - name: Wait for Selenium Grid
         run: |
           echo "Waiting for Selenium Grid to be ready..."
-          timeout=60
-          while ! curl -s http://localhost:4444/wd/hub/status | grep -q '"ready":true'; do
-            timeout=$((timeout-1))
-            if [ $timeout -eq 0 ]; then
-              echo "Selenium Grid not ready after 60 seconds"
-              exit 1
+          # Loop for max 90 seconds
+          for i in {1..30}; do
+            STATUS=$(curl -s http://localhost:4444/status | jq -r .value.ready)
+            if [ "$STATUS" = "true" ]; then
+              echo "Selenium Grid is READY!"
+              exit 0
             fi
-            sleep 1
+            echo "Grid not ready yet... waiting 3s (Attempt $i)"
+            sleep 3
           done
-          echo "Selenium Grid is ready!"
+          echo "Error: Selenium Grid timed out after 90 seconds"
+          docker compose logs  # Print logs to debug why it failed
+          exit 1
 
       - name: Run Regression Tests
         run: |
@@ -256,12 +259,14 @@ jobs:
         continue-on-error: true
 
       - name: Generate Allure Report
-        uses: simple-elf/allure-report-action@v1
+        uses: simple-elf/allure-report-action@v1.7.2
         if: always()
         with:
           allure_results: allure-results/
           allure_report: allure-report/
           subfolder: allure-report
+          allure_history: allure-history
+          keep_reports: 20
 
       - name: Upload Allure Report
         uses: actions/upload-artifact@v4
