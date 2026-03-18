@@ -1,36 +1,50 @@
 name: Test Automation CI/CD
 
-on:
-  push:
-    branches: [ main, master, develop ]
-  pull_request:
-    branches: [ main, master ]
-  schedule:
-    # Run nightly at 2 AM UTC
-    - cron: '0 2 * * *'
-  workflow_dispatch:
-    # Allow manual trigger
-    inputs:
-      test_marker:
-        description: 'Test marker to run (smoke, regression, all)'
-        required: false
-        default: 'all'
-      parallel_workers:
-        description: 'Number of parallel workers'
-        required: false
-        default: '4'
-
-env:
-  PYTHON_VERSION: '3.12'
-  SELENIUM_HUB: 'http://localhost:4444/wd/hub'
+on: [push]
 
 jobs:
-  lint-and-security:
-    name: Code Quality & Security
+  test:
     runs-on: ubuntu-latest
+    # Add these lines here:
+    permissions:
+      contents: write  # Allows the bot to push to gh-pages
+      pages: write     # Allows the bot to deploy to GitHub Pages
+      id-token: write  # Required for some OIDC providers
+      
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+#
+# on:
+#   push:
+#     branches: [ main, master, develop ]
+#   pull_request:
+#     branches: [ main, master ]
+#   schedule:
+#     # Run nightly at 2 AM UTC
+#     - cron: '0 2 * * *'
+#   workflow_dispatch:
+#     # Allow manual trigger
+#     inputs:
+#       test_marker:
+#         description: 'Test marker to run (smoke, regression, all)'
+#         required: false
+#         default: 'all'
+#       parallel_workers:
+#         description: 'Number of parallel workers'
+#         required: false
+#         default: '4'
+
+# env:
+#   PYTHON_VERSION: '3.12'
+#   SELENIUM_HUB: 'http://localhost:4444/wd/hub'
+
+# jobs:
+#   lint-and-security:
+#     name: Code Quality & Security
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
