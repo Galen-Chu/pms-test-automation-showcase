@@ -101,7 +101,7 @@ jobs:
           sed -i 's|SELENIUM_HUB = http://localhost:4444/wd/hub|SELENIUM_HUB = ${{ env.SELENIUM_HUB }}|g' pytest.ini
 
       - name: Start Selenium Grid
-        run: docker-compose up -d
+        run: docker compose up -d
 
       - name: Wait for Selenium Grid
         run: |
@@ -127,7 +127,7 @@ jobs:
 
       - name: Stop Selenium Grid
         if: always()
-        run: docker-compose down
+        run: docker compose down
 
       - name: Upload Allure Results
         uses: actions/upload-artifact@v4
@@ -183,7 +183,7 @@ jobs:
           sed -i 's|SELENIUM_HUB = http://localhost:4444/wd/hub|SELENIUM_HUB = ${{ env.SELENIUM_HUB }}|g' pytest.ini
 
       - name: Start Selenium Grid
-        run: docker-compose up -d
+        run: docker compose up -d
 
       - name: Wait for Selenium Grid
         run: |
@@ -211,7 +211,7 @@ jobs:
 
       - name: Stop Selenium Grid
         if: always()
-        run: docker-compose down
+        run: docker compose down
 
       - name: Upload Allure Results
         uses: actions/upload-artifact@v4
