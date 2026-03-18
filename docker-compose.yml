@@ -8,6 +8,11 @@ services:
       - "4444:4444"
       - "4445:4445"
       - "4446:4446"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4444/status"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   chrome:
     image: selenium/node-chrome:4.35.0-20250828
     container_name: node-chrome
